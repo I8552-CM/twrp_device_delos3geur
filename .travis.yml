@@ -31,5 +31,5 @@ script:
 - tar -H ustar -c "$(date +%Y%m%d)-$(cat md5)" > "$(date +%Y%m%d)-$(cat md5).tar"
 - echo "Made Tar"
 - curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
-- echo "####### zip url #########"
+- echo "####Made Zip#####"
 - curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-delos3geur.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-delos3geur.zip"
