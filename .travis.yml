@@ -1,0 +1,30 @@
+language: java
+jdk:
+  - openjdk7
+sudo: required
+before_script:
+- cd $HOME
+- sudo apt-get install -y lzop git-core gnupg flex bison gperf build-essential 
+  zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 
+  lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
+  libgl1-mesa-dev libxml2-utils xsltproc unzip maven schedtool &> /dev/null
+- git clone https://sumitrajdev@bitbucket.org/sumitrajdev/twrp-5.1.1.git $HOME/tmp
+- mv $HOME/tmp/twrp-5.1.1.tar.xz $HOME/twrp.tar.xz
+- rm -rf tmp
+- tar -xvf twrp.tar.xz &> log
+
+script:
+- cd $HOME/twrp
+- git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/delos3geur &> /dev/null
+- git clone https://github.com/I8552-CM/twrp_device_delos3geur.git device/samsung/delos3geur &> /dev/null
+- source build/envsetup.sh ; lunch omni_delos3geur-eng
+- make -j4 bootimage
+- make -j4 recoveryimage &> log
+- curl --upload-file "./log" "https://transfer.sh/log"
+- cd out/target/product/delos3geur/
+- md5sum recovery.img > md5
+- mv recovery.img "$(date +%Y%m%d)-$(cat md5)"
+- curl --upload-file "./$(date +%Y%m%d)-$(cat md5)" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5)"
+- tar -H ustar -c "$(date +%Y%m%d)-$(cat md5)" > "$(date +%Y%m%d)-$(cat md5).tar"
+- echo "Made Tar"
+- curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
