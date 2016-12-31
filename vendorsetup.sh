@@ -5,6 +5,6 @@ cp device/samsung/delos3geur/META-INF.zip out/target/product/delos3geur/META-INF
 cd out/target/product/delos3geur/
 unzip META-INF.zip 
 rm META-INF.zip 
-zip twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-delos3geur.zip  -r recovery.img -r META-INF
+zip twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-delos3geur.zip  -r recovery.img -r META-INF
 cd ../../../../
 }
