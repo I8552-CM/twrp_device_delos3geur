@@ -1,34 +1,42 @@
 language: java
 jdk:
-  - openjdk7
+- openjdk7
 sudo: required
 before_script:
 - cd $HOME
-- sudo apt-get install -y lzop git-core gnupg flex bison gperf build-essential 
-  zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 
-  lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
-  libgl1-mesa-dev libxml2-utils xsltproc unzip maven schedtool &> /dev/null
-- wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/6.0/twrp-6.0-20170203-no-repo.tar.xz -O $HOME/twrp.tar.xz
+- sudo apt-get install -y lzop git-core gnupg flex bison gperf build-essential zip zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev
+  libx11-dev lib32z-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip maven
+  schedtool &> /dev/null
+- wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/6.0/twrp-6.0-20170203-no-repo.tar.xz
+  -O $HOME/twrp.tar.xz
 - tar -xvf twrp.tar.xz &> log
-- mv $HOME/twrp-6.0 $HOME/twrp	
-
+- mv $HOME/twrp-6.0 $HOME/twrp
 script:
 - cd $HOME/twrp
-- git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/delos3geur &> /dev/null
-- git clone https://github.com/I8552-CM/twrp_device_delos3geur.git device/samsung/delos3geur &> /dev/null
+- git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/delos3geur
+  &> /dev/null
+- git clone https://github.com/I8552-CM/twrp_device_delos3geur.git device/samsung/delos3geur
+  &> /dev/null
 - rm -rf bootable/recovery
-- git clone https://github.com/omnirom/android_bootable_recovery.git bootable/recovery &> /dev/null
+- git clone https://github.com/omnirom/android_bootable_recovery.git bootable/recovery
+  &> /dev/null
 - source build/envsetup.sh ; lunch omni_delos3geur-eng
 - make -j4 bootimage
 - make -j4 recoveryimage &> log
 - mkazip_delos3geur
-- curl --upload-file "./log" "https://transfer.sh/log"
 - cd out/target/product/delos3geur/
-- md5sum recovery.img > md5
-- mv recovery.img "$(date +%Y%m%d)-$(cat md5)"
-- curl --upload-file "./$(date +%Y%m%d)-$(cat md5)" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5)"
-- tar -H ustar -c "$(date +%Y%m%d)-$(cat md5)" > "$(date +%Y%m%d)-$(cat md5).tar"
+- tar -H ustar -c "recovery.img" > "recovery.tar"
 - echo "Made Tar"
-- curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
 - echo "####Made Zip#####"
-- curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-delos3geur.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-delos3geur.zip"
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: Fj/7CtoYzYY9OEzQu9R52dU6BFIWf0DKZ2J6MYIMILnzyQfkuP/wU5LdlBDom9CDeGqDdgaOndVuqHCats+wpYHV6IzsgoKH+3vlLHn2eDEXasbim8Li4IurXwdVEi0ZILJu8CGZxTSglg7xAyVMcepnL8Q/C1SaTvfeJi+Yt6t84G883zk6G2GMamaTh/yZM2atInDqIBNRNHH3JhX6/gfQqyiZjsG94Gy80j2YrnW4UQcH9jsAUykk3Ma29EFsh9Lk/+YJFhYr1Y0knvzWDnCkj7lepc8UgPu9D0BJx+20rC9SWDIcFDuy7oaJeAnKf39U6RcVSeESvmjN4UWMLLrO16D9eS0eDDeCV9BSjm8zo64+YsaWOtj6NjPd84G+4iUqETefz/1+9ofzUiDBwLGI90XZNW8W1rSSbRG+fh30mfZ3PKEUHIkqt6gTDOtmhU8XrIrThLLeB30x6j6MmiybQYvR13b8Zz1LbS1DXWQkY14DXdHIaJnX8tKkJ1BKQb4jjatW3tdq64BL9K+APUlWlU9GA3iYOSvv7z19vDV46E3DGbsQ7+MzD3wCklxJB/FVkP26a5q39yiENPFak6sBkRGZDzidaKUX8Fj1Y0i0mXmWNLW1c5F/agRoCYNH7Ly2xSD9stWqK5cuWzwUC9ALkrKBpUGScdmg0Qhzw0Y=
+  file:
+    - recovery.tar
+    - recovery.img
+    - twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-delos3geur.zip
+  on:
+    repo: I8552-CM/twrp_device_delos3geur
+    branch: mm6.0
