@@ -10,7 +10,7 @@ before_script:
 - wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/initial/twrp-5.1.1.tar.xz
   -O $HOME/twrp.tar.xz
 - tar -xvf twrp.tar.xz &> log
-- mv $HOME/twrp-6.0 $HOME/twrp
+
 script:
 - cd $HOME/twrp
 - git clone https://github.com/I8552-CM/android_kernel_delos3geur.git kernel/samsung/delos3geur
