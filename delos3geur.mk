@@ -27,4 +27,4 @@ device/samsung/delos3geur/recovery/sbin/rmt_oeminfo_recovery:/recovery/root/sbin
 device/samsung/delos3geur/recovery/sbin/linker:/recovery/root/sbin/linker \
 device/samsung/delos3geur/recovery/sbin/charge.sh:/recovery/root/sbin/charge.sh \
 device/samsung/delos3geur/recovery/tp/1191601.img:root/tp/1191601.img \
-device/samsung/delos3geur/recovery/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
+#device/samsung/delos3geur/recovery/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
