@@ -42,7 +42,6 @@ BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom
 BOARD_KERNEL_BASE := 0x00200000
 BOARD_PAGE_SIZE := 4096
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01300000
-#TARGET_PREBUILT_KERNEL := device/samsung/delos3geur/kernel
 
 # USB Mounting
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
@@ -54,32 +53,18 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_NO_CPU_TEMP := true
 TARGET_KERNEL_SOURCE := kernel/samsung/delos3geur
 TARGET_KERNEL_CONFIG := delos_defconfig
-#TARGET_PREBUILT_RECOVERY_KERNEL := device/samsung/delos3geur/kernel
-#TARGET_RECOVERY_INITRC := device/samsung/delos3geur/init.rc
 TARGET_RECOVERY_FSTAB := device/samsung/delos3geur/recovery.fstab
+RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_USES_MMCUTILS := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 DEVICE_RESOLUTION := 480x800
-SP1_BACKUP_METHOD := files
-SP1_MOUNTABLE := 1
-TW_DOWNLOAD_MODE := true
-SP2_NAME := "internal_sd"
-SP2_BACKUP_METHOD := files
-SP2_MOUNTABLE := 1
-TW_INTERNAL_STORAGE_PATH := "/internal_sd"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "internal_sd"
-TW_EXTERNAL_STORAGE_PATH := "/sdcard"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "sdcard"
-TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_FLASH_FROM_STORAGE := true 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 BOARD_USE_CUSTOM_RECOVERY_FONT:= \"roboto_10x18.h\"
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.524288/leds/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
-#TW_BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/delos3geur/recovery/graphics.c
 

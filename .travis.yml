@@ -21,8 +21,7 @@ script:
 - git clone https://github.com/omnirom/android_bootable_recovery.git bootable/recovery
   &> /dev/null
 - source build/envsetup.sh ; lunch omni_delos3geur-eng
-- make -j4 bootimage
-- make -j4 recoveryimage &> log
+- make -j4 recoveryimage
 - mkazip_delos3geur
 - cd out/target/product/delos3geur/
 - tar -H ustar -c "recovery.img" > "recovery.tar"
